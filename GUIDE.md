@@ -3,6 +3,9 @@
 ## Overview
 **Aurora-Viewer LEAP Studio** (`aurora-leap-gui`) is a comprehensive Rust desktop application built using `eframe`/`egui` and powered by [`serde-llsd`](https://crates.io/crates/serde-llsd). It provides a full GUI, automated scripting environment, and standard Model Context Protocol (MCP) server for controlling **Aurora-Viewer** over the Linden Event-driven Architecture Protocol (LEAP).
 
+> [!IMPORTANT]
+> **Required Viewer Branch**: You must run the **`llsd`** branch of Aurora-Viewer ([https://github.com/VRVirtuosos/Aurora-Viewer/tree/llsd](https://github.com/VRVirtuosos/Aurora-Viewer/tree/llsd)) to use this tool, as it contains all the necessary LEAP pumps, telemetry feeds, and asynchronous handlers.
+
 ---
 
 ## Core Features & Subsystems

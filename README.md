@@ -1,6 +1,13 @@
 # Aurora-Viewer LEAP Studio (GUI)
 
-A modern, high-performance graphical desktop application built in **Rust** using [`serde-llsd`](https://github.com/John-Nagle/serde-llsd) and [`eframe` / `egui`](https://github.com/emilk/egui) to communicate with, test, and control all Linden Lab LEAP (LLSD Event-based API Protocol) features in [Aurora-Viewer](https://github.com/Aurora-Viewer/Aurora-Viewer).
+A modern, high-performance graphical desktop application built in **Rust** using [`serde-llsd`](https://github.com/John-Nagle/serde-llsd) and [`eframe` / `egui`](https://github.com/emilk/egui) to communicate with, test, and control all Linden Lab LEAP (LLSD Event-based API Protocol) features in [Aurora-Viewer](https://github.com/VRVirtuosos/Aurora-Viewer/tree/llsd).
+
+> [!IMPORTANT]
+> ### ⚡ Required Aurora-Viewer Branch: `llsd`
+> To use the Aurora-Viewer LEAP Studio, you **MUST** use the **`llsd`** branch of Aurora-Viewer:  
+> 👉 **[https://github.com/VRVirtuosos/Aurora-Viewer/tree/llsd](https://github.com/VRVirtuosos/Aurora-Viewer/tree/llsd)**
+>
+> All required LEAP event pumps, async command routing, front/rear camera presets, dialog notifications (`LLNotifications`), and telemetry extensions are implemented and active on this branch. Standard or upstream branches of the viewer will lack these LEAP subsystems and will not communicate with this GUI.
 
 > 📖 **[Read the Complete User & Architecture Guide (GUIDE.md)](GUIDE.md)** for detailed documentation on camera sequencers, radar minimap, blackbox recorder, Rhai scripting engine, and the 20 MCP tools.  
 > 📐 **[Read the LLSD Protocol & Async Architecture Plan (LLSD_PROTOCOL_AND_ASYNC_PLAN.md)](LLSD_PROTOCOL_AND_ASYNC_PLAN.md)** for protocol specification, non-blocking threading design, and subsystem milestone roadmap.
