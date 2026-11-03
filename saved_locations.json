@@ -1,0 +1,508 @@
+[
+  {
+    "id": "796b7231-e425-4236-83d5-635be7612659",
+    "name": "Automated Script View",
+    "region": "Welcome Island",
+    "created_at": "2026-11-02 08:34",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.5,
+      128.0,
+      26.8
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.2
+    ],
+    "camera_fov": 60.0,
+    "notes": "Script created bookmark"
+  },
+  {
+    "id": "8c70f2e2-bca6-43af-95bd-81aa0f686842",
+    "name": "Automated Script View",
+    "region": "Welcome Island",
+    "created_at": "2026-11-02 08:49",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.5,
+      128.0,
+      26.8
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.2
+    ],
+    "camera_fov": 60.0,
+    "notes": "Script created bookmark"
+  },
+  {
+    "id": "068d411f-8909-474b-a323-c4cf3772cd8f",
+    "name": "MCP Test Sanctuary",
+    "region": "Unknown",
+    "created_at": "2026-11-02 08:59:42",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.0,
+      128.0,
+      26.5
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.0
+    ],
+    "camera_fov": 60.0,
+    "notes": "Automated MCP unit test bookmark"
+  },
+  {
+    "id": "b356fa5c-0853-455a-900d-15671f8726e0",
+    "name": "Automated Script View",
+    "region": "Welcome Island",
+    "created_at": "2026-11-02 08:59",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.5,
+      128.0,
+      26.8
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.2
+    ],
+    "camera_fov": 60.0,
+    "notes": "Script created bookmark"
+  },
+  {
+    "id": "7735f1ea-de89-4bf0-841f-eb8dd7adae39",
+    "name": "MCP Test Sanctuary",
+    "region": "Unknown",
+    "created_at": "2026-11-02 09:00:27",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.0,
+      128.0,
+      26.5
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.0
+    ],
+    "camera_fov": 60.0,
+    "notes": "Automated MCP unit test bookmark"
+  },
+  {
+    "id": "78149645-a991-48de-b1dd-1d08a0e7fb5d",
+    "name": "Automated Script View",
+    "region": "Welcome Island",
+    "created_at": "2026-11-02 09:00",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.5,
+      128.0,
+      26.8
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.2
+    ],
+    "camera_fov": 60.0,
+    "notes": "Script created bookmark"
+  },
+  {
+    "id": "d8c4576b-dc21-4e13-9b9a-1e7ff3fa6712",
+    "name": "MCP Test Sanctuary",
+    "region": "Unknown",
+    "created_at": "2026-11-02 09:07:17",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.0,
+      128.0,
+      26.5
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.0
+    ],
+    "camera_fov": 60.0,
+    "notes": "Automated MCP unit test bookmark"
+  },
+  {
+    "id": "60a923f6-b0eb-4c41-bfd6-3f7de2d60114",
+    "name": "Automated Script View",
+    "region": "Welcome Island",
+    "created_at": "2026-11-02 09:07",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.5,
+      128.0,
+      26.8
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.2
+    ],
+    "camera_fov": 60.0,
+    "notes": "Script created bookmark"
+  },
+  {
+    "id": "52a88470-e578-435b-928a-f5f715135ae4",
+    "name": "MCP Test Sanctuary",
+    "region": "Unknown",
+    "created_at": "2026-11-02 09:14:42",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.0,
+      128.0,
+      26.5
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.0
+    ],
+    "camera_fov": 60.0,
+    "notes": "Automated MCP unit test bookmark"
+  },
+  {
+    "id": "5b6cb6a3-8e43-4d33-b458-a5e12b9aadcb",
+    "name": "Automated Script View",
+    "region": "Welcome Island",
+    "created_at": "2026-11-02 09:14",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.5,
+      128.0,
+      26.8
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.2
+    ],
+    "camera_fov": 60.0,
+    "notes": "Script created bookmark"
+  },
+  {
+    "id": "472df8f2-1cfe-44dc-9569-28fb88bb0a4f",
+    "name": "MCP Test Sanctuary",
+    "region": "Unknown",
+    "created_at": "2026-11-02 10:38:23",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.0,
+      128.0,
+      26.5
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.0
+    ],
+    "camera_fov": 60.0,
+    "notes": "Automated MCP unit test bookmark"
+  },
+  {
+    "id": "730b784f-4ae4-4485-aae5-4124f7cc7744",
+    "name": "Automated Script View",
+    "region": "Welcome Island",
+    "created_at": "2026-11-02 10:38",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.5,
+      128.0,
+      26.8
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.2
+    ],
+    "camera_fov": 60.0,
+    "notes": "Script created bookmark"
+  },
+  {
+    "id": "678c0def-ff62-4d20-890d-61907f877160",
+    "name": "MCP Test Sanctuary",
+    "region": "Unknown",
+    "created_at": "2026-11-02 10:47:06",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.0,
+      128.0,
+      26.5
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.0
+    ],
+    "camera_fov": 60.0,
+    "notes": "Automated MCP unit test bookmark"
+  },
+  {
+    "id": "dc190d9a-7e4e-4ffe-b8f3-ced4b4644068",
+    "name": "Automated Script View",
+    "region": "Welcome Island",
+    "created_at": "2026-11-02 10:47",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.5,
+      128.0,
+      26.8
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.2
+    ],
+    "camera_fov": 60.0,
+    "notes": "Script created bookmark"
+  },
+  {
+    "id": "e3518f75-c0ff-4a44-a722-ed755d192236",
+    "name": "MCP Test Sanctuary",
+    "region": "Unknown",
+    "created_at": "2026-11-02 10:47:49",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.0,
+      128.0,
+      26.5
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.0
+    ],
+    "camera_fov": 60.0,
+    "notes": "Automated MCP unit test bookmark"
+  },
+  {
+    "id": "57c7250b-15aa-43b3-a11f-947a7794be11",
+    "name": "Automated Script View",
+    "region": "Welcome Island",
+    "created_at": "2026-11-02 10:48",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.5,
+      128.0,
+      26.8
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.2
+    ],
+    "camera_fov": 60.0,
+    "notes": "Script created bookmark"
+  },
+  {
+    "id": "286d20e3-7df0-4961-a8de-491026198e28",
+    "name": "MCP Test Sanctuary",
+    "region": "Unknown",
+    "created_at": "2026-11-02 12:29:48",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.0,
+      128.0,
+      26.5
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.0
+    ],
+    "camera_fov": 60.0,
+    "notes": "Automated MCP unit test bookmark"
+  },
+  {
+    "id": "b0c96091-0eda-41d2-9e75-6db063595453",
+    "name": "Automated Script View",
+    "region": "Welcome Island",
+    "created_at": "2026-11-02 12:30",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.5,
+      128.0,
+      26.8
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.2
+    ],
+    "camera_fov": 60.0,
+    "notes": "Script created bookmark"
+  },
+  {
+    "id": "7c9427d3-0300-4966-afa9-880ef395f2b9",
+    "name": "MCP Test Sanctuary",
+    "region": "Unknown",
+    "created_at": "2026-11-03 07:40:07",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.0,
+      128.0,
+      26.5
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.0
+    ],
+    "camera_fov": 60.0,
+    "notes": "Automated MCP unit test bookmark"
+  },
+  {
+    "id": "f07b629b-1c43-4b0d-975d-48b9ed868467",
+    "name": "Automated Script View",
+    "region": "Welcome Island",
+    "created_at": "2026-11-03 07:40",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.5,
+      128.0,
+      26.8
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.2
+    ],
+    "camera_fov": 60.0,
+    "notes": "Script created bookmark"
+  },
+  {
+    "id": "dff18c6e-29f1-4c04-b46f-d2daa2eec0c3",
+    "name": "MCP Test Sanctuary",
+    "region": "Unknown",
+    "created_at": "2026-11-03 08:23:50",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.0,
+      128.0,
+      26.5
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.0
+    ],
+    "camera_fov": 60.0,
+    "notes": "Automated MCP unit test bookmark"
+  },
+  {
+    "id": "a461cdec-16ac-4650-a6b0-779d26b65baf",
+    "name": "Automated Script View",
+    "region": "Welcome Island",
+    "created_at": "2026-11-03 08:24",
+    "avatar_pos": [
+      128.0,
+      128.0,
+      25.0
+    ],
+    "camera_pos": [
+      124.5,
+      128.0,
+      26.8
+    ],
+    "camera_target": [
+      128.0,
+      128.0,
+      26.2
+    ],
+    "camera_fov": 60.0,
+    "notes": "Script created bookmark"
+  }
+]
