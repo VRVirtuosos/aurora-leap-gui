@@ -1,1 +1,21 @@
 /target
+
+# Credentials, tokens, and saved user profiles
+saved_avatars.json
+*.env
+*.env.*
+*.credentials
+credentials.json
+*.token
+*.key
+*.pem
+
+# Diagnostic bundles and logs
+*.log
+incident_*.zip
+blackbox_*.zip
+crash_*.log
+
+# Snapshots & test captures
+snapshot/
+snapshots/
