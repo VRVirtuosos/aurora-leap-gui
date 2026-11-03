@@ -2,6 +2,8 @@
 
 A modern, high-performance graphical desktop application built in **Rust** using [`serde-llsd`](https://github.com/John-Nagle/serde-llsd) and [`eframe` / `egui`](https://github.com/emilk/egui) to communicate with, test, and control all Linden Lab LEAP (LLSD Event-based API Protocol) features in [Aurora-Viewer](https://github.com/Aurora-Viewer/Aurora-Viewer).
 
+> 📖 **[Read the Complete User & Architecture Guide (GUIDE.md)](GUIDE.md)** for detailed documentation on camera sequencers, radar minimap, blackbox recorder, Rhai scripting engine, and the 20 MCP tools.
+
 ---
 
 ## Key Features
