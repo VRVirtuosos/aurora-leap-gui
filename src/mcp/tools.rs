@@ -321,6 +321,133 @@ pub fn get_tool_definitions() -> Vec<McpToolDefinition> {
                 "required": ["id"]
             }),
         },
+        McpToolDefinition {
+            name: "aurora_create_object".to_string(),
+            description: "Rez a new 3D primitive (cube, sphere, cylinder, prism, pyramid, cone, torus, etc.) inworld near the avatar or at a specified coordinate.".to_string(),
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "shape": {
+                        "type": "string",
+                        "description": "Primitive shape name ('cube'/'box', 'sphere', 'cylinder', 'prism', 'pyramid', 'cone', 'torus', 'tube', 'ring'). Default is 'cube'."
+                    },
+                    "position": {
+                        "type": "array",
+                        "items": { "type": "number" },
+                        "description": "Optional [x, y, z] in-world position. If omitted, rezzes 2 meters in front of avatar."
+                    },
+                    "scale": {
+                        "type": "array",
+                        "items": { "type": "number" },
+                        "description": "Optional [scale_x, scale_y, scale_z] dimensions in meters. Default is [0.5, 0.5, 0.5]."
+                    },
+                    "material": {
+                        "type": "integer",
+                        "description": "Optional material code (1 for metal, 0 for stone, etc.). Default is 1."
+                    }
+                }
+            }),
+        },
+        McpToolDefinition {
+            name: "aurora_delete_object".to_string(),
+            description: "Delete (derez) an inworld primitive or object into the avatar's trash folder.".to_string(),
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "local_id": {
+                        "type": "integer",
+                        "description": "Simulator local ID of the object to delete."
+                    },
+                    "uuid": {
+                        "type": "string",
+                        "description": "Full UUID of the object to delete."
+                    }
+                }
+            }),
+        },
+        McpToolDefinition {
+            name: "aurora_set_object_transform".to_string(),
+            description: "Modify an inworld object's position, scale, or rotation in the simulator.".to_string(),
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "local_id": {
+                        "type": "integer",
+                        "description": "Simulator local ID of the target object."
+                    },
+                    "uuid": {
+                        "type": "string",
+                        "description": "Full UUID of the target object."
+                    },
+                    "position": {
+                        "type": "array",
+                        "items": { "type": "number" },
+                        "description": "Optional new [x, y, z] in-world position."
+                    },
+                    "scale": {
+                        "type": "array",
+                        "items": { "type": "number" },
+                        "description": "Optional new [scale_x, scale_y, scale_z] dimensions."
+                    },
+                    "rotation": {
+                        "type": "array",
+                        "items": { "type": "number" },
+                        "description": "Optional [x, y, z, w] quaternion or [roll, pitch, yaw] euler rotation."
+                    }
+                }
+            }),
+        },
+        McpToolDefinition {
+            name: "aurora_select_object".to_string(),
+            description: "Select an object in-world by local_id or uuid, causing the simulator to return its properties and highlight it.".to_string(),
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "local_id": { "type": "integer", "description": "Local ID of object to select." },
+                    "uuid": { "type": "string", "description": "UUID of object to select." }
+                }
+            }),
+        },
+        McpToolDefinition {
+            name: "aurora_deselect_object".to_string(),
+            description: "Deselect active selection or a specific object inworld.".to_string(),
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "local_id": { "type": "integer", "description": "Optional local ID to deselect." },
+                    "uuid": { "type": "string", "description": "Optional UUID to deselect." }
+                }
+            }),
+        },
+        McpToolDefinition {
+            name: "aurora_set_object_name".to_string(),
+            description: "Set the display name of an inworld object.".to_string(),
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "local_id": { "type": "integer", "description": "Local ID of target object." },
+                    "uuid": { "type": "string", "description": "UUID of target object." },
+                    "name": { "type": "string", "description": "New name for the object." }
+                },
+                "required": ["name"]
+            }),
+        },
+        McpToolDefinition {
+            name: "aurora_duplicate_object".to_string(),
+            description: "Duplicate an inworld primitive or object with an offset.".to_string(),
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "local_id": { "type": "integer", "description": "Local ID of source object." },
+                    "uuid": { "type": "string", "description": "UUID of source object." },
+                    "offset": {
+                        "type": "array",
+                        "items": { "type": "number" },
+                        "description": "Optional [x, y, z] duplication offset in meters (default [0, 0, 1])."
+                    }
+                }
+            }),
+        },
     ]
 }
 
@@ -1096,6 +1223,170 @@ pub fn dispatch_tool_call(client: &mut LeapClient, name: &str, args: &Value) -> 
             match client.respond_notification(id, action, button_index, text) {
                 Ok(_) => McpCallResult::success(format!("Notification {id} responded with action '{action}'")),
                 Err(e) => McpCallResult::error(format!("Failed to respond to notification {id}: {e}")),
+            }
+        }
+
+        "aurora_create_object" => {
+            if !client.is_connected() {
+                return McpCallResult::error("Aurora-Viewer is not connected.");
+            }
+            let mut req = HashMap::new();
+            req.insert("op".to_string(), LLSDValue::String("createObject".to_string()));
+            if let Some(shape) = args.get("shape").and_then(|v| v.as_str()) {
+                req.insert("shape".to_string(), LLSDValue::String(shape.to_string()));
+            }
+            if let Some(pos) = args.get("position").and_then(|v| v.as_array()) {
+                let arr = pos.iter().filter_map(|n| n.as_f64()).map(LLSDValue::Real).collect();
+                req.insert("position".to_string(), LLSDValue::Array(arr));
+            }
+            if let Some(scale) = args.get("scale").and_then(|v| v.as_array()) {
+                let arr = scale.iter().filter_map(|n| n.as_f64()).map(LLSDValue::Real).collect();
+                req.insert("scale".to_string(), LLSDValue::Array(arr));
+            } else if let Some(s) = args.get("scale").and_then(|v| v.as_f64()) {
+                req.insert("scale".to_string(), LLSDValue::Real(s));
+            }
+            if let Some(mat) = args.get("material").and_then(|v| v.as_i64()) {
+                req.insert("material".to_string(), LLSDValue::Integer(mat as i32));
+            }
+
+            match client.request("LLObjects", req, Duration::from_secs(5)) {
+                Ok(reply) => McpCallResult::success_json(&llsd_to_json(&reply)),
+                Err(e) => McpCallResult::error(format!("Failed to create object: {e}")),
+            }
+        }
+
+        "aurora_delete_object" => {
+            if !client.is_connected() {
+                return McpCallResult::error("Aurora-Viewer is not connected.");
+            }
+            let mut req = HashMap::new();
+            req.insert("op".to_string(), LLSDValue::String("deleteObject".to_string()));
+            if let Some(id) = args.get("local_id").and_then(|v| v.as_i64()) {
+                req.insert("local_id".to_string(), LLSDValue::Integer(id as i32));
+            }
+            if let Some(uuid) = args.get("uuid").and_then(|v| v.as_str()) {
+                req.insert("uuid".to_string(), LLSDValue::String(uuid.to_string()));
+            }
+
+            match client.request("LLObjects", req, Duration::from_secs(5)) {
+                Ok(reply) => McpCallResult::success_json(&llsd_to_json(&reply)),
+                Err(e) => McpCallResult::error(format!("Failed to delete object: {e}")),
+            }
+        }
+
+        "aurora_set_object_transform" => {
+            if !client.is_connected() {
+                return McpCallResult::error("Aurora-Viewer is not connected.");
+            }
+            let mut req = HashMap::new();
+            req.insert("op".to_string(), LLSDValue::String("setTransform".to_string()));
+            if let Some(id) = args.get("local_id").and_then(|v| v.as_i64()) {
+                req.insert("local_id".to_string(), LLSDValue::Integer(id as i32));
+            }
+            if let Some(uuid) = args.get("uuid").and_then(|v| v.as_str()) {
+                req.insert("uuid".to_string(), LLSDValue::String(uuid.to_string()));
+            }
+            if let Some(pos) = args.get("position").and_then(|v| v.as_array()) {
+                let arr = pos.iter().filter_map(|n| n.as_f64()).map(LLSDValue::Real).collect();
+                req.insert("position".to_string(), LLSDValue::Array(arr));
+            }
+            if let Some(scale) = args.get("scale").and_then(|v| v.as_array()) {
+                let arr = scale.iter().filter_map(|n| n.as_f64()).map(LLSDValue::Real).collect();
+                req.insert("scale".to_string(), LLSDValue::Array(arr));
+            }
+            if let Some(rot) = args.get("rotation").and_then(|v| v.as_array()) {
+                let arr = rot.iter().filter_map(|n| n.as_f64()).map(LLSDValue::Real).collect();
+                req.insert("rotation".to_string(), LLSDValue::Array(arr));
+            }
+
+            match client.request("LLObjects", req, Duration::from_secs(5)) {
+                Ok(reply) => McpCallResult::success_json(&llsd_to_json(&reply)),
+                Err(e) => McpCallResult::error(format!("Failed to transform object: {e}")),
+            }
+        }
+
+        "aurora_select_object" => {
+            if !client.is_connected() {
+                return McpCallResult::error("Aurora-Viewer is not connected.");
+            }
+            let mut req = HashMap::new();
+            req.insert("op".to_string(), LLSDValue::String("selectObject".to_string()));
+            if let Some(id) = args.get("local_id").and_then(|v| v.as_i64()) {
+                req.insert("local_id".to_string(), LLSDValue::Integer(id as i32));
+            }
+            if let Some(uuid) = args.get("uuid").and_then(|v| v.as_str()) {
+                req.insert("uuid".to_string(), LLSDValue::String(uuid.to_string()));
+            }
+
+            match client.request("LLObjects", req, Duration::from_secs(5)) {
+                Ok(reply) => McpCallResult::success_json(&llsd_to_json(&reply)),
+                Err(e) => McpCallResult::error(format!("Failed to select object: {e}")),
+            }
+        }
+
+        "aurora_deselect_object" => {
+            if !client.is_connected() {
+                return McpCallResult::error("Aurora-Viewer is not connected.");
+            }
+            let mut req = HashMap::new();
+            req.insert("op".to_string(), LLSDValue::String("deselect".to_string()));
+            if let Some(id) = args.get("local_id").and_then(|v| v.as_i64()) {
+                req.insert("local_id".to_string(), LLSDValue::Integer(id as i32));
+            }
+            if let Some(uuid) = args.get("uuid").and_then(|v| v.as_str()) {
+                req.insert("uuid".to_string(), LLSDValue::String(uuid.to_string()));
+            }
+
+            match client.request("LLObjects", req, Duration::from_secs(5)) {
+                Ok(reply) => McpCallResult::success_json(&llsd_to_json(&reply)),
+                Err(e) => McpCallResult::error(format!("Failed to deselect: {e}")),
+            }
+        }
+
+        "aurora_set_object_name" => {
+            if !client.is_connected() {
+                return McpCallResult::error("Aurora-Viewer is not connected.");
+            }
+            let name_str = match args.get("name").and_then(|v| v.as_str()) {
+                Some(n) => n,
+                None => return McpCallResult::error("Missing parameter 'name'"),
+            };
+            let mut req = HashMap::new();
+            req.insert("op".to_string(), LLSDValue::String("setName".to_string()));
+            req.insert("name".to_string(), LLSDValue::String(name_str.to_string()));
+            if let Some(id) = args.get("local_id").and_then(|v| v.as_i64()) {
+                req.insert("local_id".to_string(), LLSDValue::Integer(id as i32));
+            }
+            if let Some(uuid) = args.get("uuid").and_then(|v| v.as_str()) {
+                req.insert("uuid".to_string(), LLSDValue::String(uuid.to_string()));
+            }
+
+            match client.request("LLObjects", req, Duration::from_secs(5)) {
+                Ok(reply) => McpCallResult::success_json(&llsd_to_json(&reply)),
+                Err(e) => McpCallResult::error(format!("Failed to set object name: {e}")),
+            }
+        }
+
+        "aurora_duplicate_object" => {
+            if !client.is_connected() {
+                return McpCallResult::error("Aurora-Viewer is not connected.");
+            }
+            let mut req = HashMap::new();
+            req.insert("op".to_string(), LLSDValue::String("duplicate".to_string()));
+            if let Some(id) = args.get("local_id").and_then(|v| v.as_i64()) {
+                req.insert("local_id".to_string(), LLSDValue::Integer(id as i32));
+            }
+            if let Some(uuid) = args.get("uuid").and_then(|v| v.as_str()) {
+                req.insert("uuid".to_string(), LLSDValue::String(uuid.to_string()));
+            }
+            if let Some(off) = args.get("offset").and_then(|v| v.as_array()) {
+                let arr = off.iter().filter_map(|n| n.as_f64()).map(LLSDValue::Real).collect();
+                req.insert("offset".to_string(), LLSDValue::Array(arr));
+            }
+
+            match client.request("LLObjects", req, Duration::from_secs(5)) {
+                Ok(reply) => McpCallResult::success_json(&llsd_to_json(&reply)),
+                Err(e) => McpCallResult::error(format!("Failed to duplicate object: {e}")),
             }
         }
 

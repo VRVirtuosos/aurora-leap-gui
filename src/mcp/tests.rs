@@ -28,6 +28,13 @@ mod tests {
         assert!(names.contains(&"aurora_goto_bookmark"));
         assert!(names.contains(&"aurora_get_radar"));
         assert!(names.contains(&"aurora_get_objects"));
+        assert!(names.contains(&"aurora_create_object"));
+        assert!(names.contains(&"aurora_delete_object"));
+        assert!(names.contains(&"aurora_set_object_transform"));
+        assert!(names.contains(&"aurora_select_object"));
+        assert!(names.contains(&"aurora_deselect_object"));
+        assert!(names.contains(&"aurora_set_object_name"));
+        assert!(names.contains(&"aurora_duplicate_object"));
         assert!(names.contains(&"aurora_send_chat"));
         assert!(names.contains(&"aurora_get_recent_chat"));
         assert!(names.contains(&"aurora_eval_script"));

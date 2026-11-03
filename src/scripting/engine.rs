@@ -847,6 +847,131 @@ pub fn create_script_engine(ctx: ScriptContext) -> Engine {
         Map::new()
     });
 
+    let c = ctx.clone();
+    engine.register_fn("objects_create_prim", move |shape: &str| -> Map {
+        let mut args = HashMap::new();
+        args.insert("op".to_string(), LLSDValue::String("createObject".to_string()));
+        args.insert("shape".to_string(), LLSDValue::String(shape.to_string()));
+        if let Ok(reply) = c.client.request("LLObjects", args, Duration::from_secs(5)) {
+            if let Some(map) = llsd_to_dynamic(&reply).try_cast::<Map>() {
+                return map;
+            }
+        }
+        Map::new()
+    });
+
+    let c = ctx.clone();
+    engine.register_fn("objects_create_prim_at", move |shape: &str, x: FLOAT, y: FLOAT, z: FLOAT| -> Map {
+        let mut args = HashMap::new();
+        args.insert("op".to_string(), LLSDValue::String("createObject".to_string()));
+        args.insert("shape".to_string(), LLSDValue::String(shape.to_string()));
+        args.insert("position".to_string(), LLSDValue::Array(vec![
+            LLSDValue::Real(x as f64),
+            LLSDValue::Real(y as f64),
+            LLSDValue::Real(z as f64),
+        ]));
+        if let Ok(reply) = c.client.request("LLObjects", args, Duration::from_secs(5)) {
+            if let Some(map) = llsd_to_dynamic(&reply).try_cast::<Map>() {
+                return map;
+            }
+        }
+        Map::new()
+    });
+
+    let c = ctx.clone();
+    engine.register_fn("objects_delete", move |local_id: INT| -> Map {
+        let mut args = HashMap::new();
+        args.insert("op".to_string(), LLSDValue::String("deleteObject".to_string()));
+        args.insert("local_id".to_string(), LLSDValue::Integer(local_id as i32));
+        if let Ok(reply) = c.client.request("LLObjects", args, Duration::from_secs(5)) {
+            if let Some(map) = llsd_to_dynamic(&reply).try_cast::<Map>() {
+                return map;
+            }
+        }
+        Map::new()
+    });
+
+    let c = ctx.clone();
+    engine.register_fn("objects_delete_uuid", move |uuid: &str| -> Map {
+        let mut args = HashMap::new();
+        args.insert("op".to_string(), LLSDValue::String("deleteObject".to_string()));
+        args.insert("uuid".to_string(), LLSDValue::String(uuid.to_string()));
+        if let Ok(reply) = c.client.request("LLObjects", args, Duration::from_secs(5)) {
+            if let Some(map) = llsd_to_dynamic(&reply).try_cast::<Map>() {
+                return map;
+            }
+        }
+        Map::new()
+    });
+
+    let c = ctx.clone();
+    engine.register_fn("objects_set_position", move |local_id: INT, x: FLOAT, y: FLOAT, z: FLOAT| -> Map {
+        let mut args = HashMap::new();
+        args.insert("op".to_string(), LLSDValue::String("setTransform".to_string()));
+        args.insert("local_id".to_string(), LLSDValue::Integer(local_id as i32));
+        args.insert("position".to_string(), LLSDValue::Array(vec![
+            LLSDValue::Real(x as f64),
+            LLSDValue::Real(y as f64),
+            LLSDValue::Real(z as f64),
+        ]));
+        if let Ok(reply) = c.client.request("LLObjects", args, Duration::from_secs(5)) {
+            if let Some(map) = llsd_to_dynamic(&reply).try_cast::<Map>() {
+                return map;
+            }
+        }
+        Map::new()
+    });
+
+    let c = ctx.clone();
+    engine.register_fn("objects_set_scale", move |local_id: INT, sx: FLOAT, sy: FLOAT, sz: FLOAT| -> Map {
+        let mut args = HashMap::new();
+        args.insert("op".to_string(), LLSDValue::String("setTransform".to_string()));
+        args.insert("local_id".to_string(), LLSDValue::Integer(local_id as i32));
+        args.insert("scale".to_string(), LLSDValue::Array(vec![
+            LLSDValue::Real(sx as f64),
+            LLSDValue::Real(sy as f64),
+            LLSDValue::Real(sz as f64),
+        ]));
+        if let Ok(reply) = c.client.request("LLObjects", args, Duration::from_secs(5)) {
+            if let Some(map) = llsd_to_dynamic(&reply).try_cast::<Map>() {
+                return map;
+            }
+        }
+        Map::new()
+    });
+
+    let c = ctx.clone();
+    engine.register_fn("objects_set_name", move |local_id: INT, name: &str| -> Map {
+        let mut args = HashMap::new();
+        args.insert("op".to_string(), LLSDValue::String("setName".to_string()));
+        args.insert("local_id".to_string(), LLSDValue::Integer(local_id as i32));
+        args.insert("name".to_string(), LLSDValue::String(name.to_string()));
+        if let Ok(reply) = c.client.request("LLObjects", args, Duration::from_secs(5)) {
+            if let Some(map) = llsd_to_dynamic(&reply).try_cast::<Map>() {
+                return map;
+            }
+        }
+        Map::new()
+    });
+
+    let c = ctx.clone();
+    engine.register_fn("objects_duplicate", move |local_id: INT, off_x: FLOAT, off_y: FLOAT, off_z: FLOAT| -> Map {
+        let mut args = HashMap::new();
+        args.insert("op".to_string(), LLSDValue::String("duplicate".to_string()));
+        args.insert("local_id".to_string(), LLSDValue::Integer(local_id as i32));
+        args.insert("offset".to_string(), LLSDValue::Array(vec![
+            LLSDValue::Real(off_x as f64),
+            LLSDValue::Real(off_y as f64),
+            LLSDValue::Real(off_z as f64),
+        ]));
+        if let Ok(reply) = c.client.request("LLObjects", args, Duration::from_secs(5)) {
+            if let Some(map) = llsd_to_dynamic(&reply).try_cast::<Map>() {
+                return map;
+            }
+        }
+        Map::new()
+    });
+
     // ── Appearance Helpers ────────────────────────────────────────────────────
     let c = ctx.clone();
     engine.register_fn("appearance_get_worn", move || -> Map {

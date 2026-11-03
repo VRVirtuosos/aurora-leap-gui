@@ -17,6 +17,12 @@ use crate::ui::theme::{
     COLOR_WARNING,
 };
 
+const SHAPE_NAMES: [&str; 13] = [
+    "Box / Cube", "Right Prism", "Pyramid", "Tetrahedron", "Cylinder",
+    "Half Cylinder", "Cone", "Half Cone", "Sphere", "Half Sphere",
+    "Torus", "Tube", "Ring",
+];
+
 /// Represents an inworld primitive or linkset member returned by `LLObjects.getNearbyObjects`.
 #[derive(Debug, Clone)]
 pub struct InworldObject {
@@ -60,6 +66,10 @@ pub struct ObjectsTab {
     pending_query: Option<AsyncRequest<Vec<InworldObject>>>,
     pending_inspect: Option<(u32, AsyncRequest<ObjectDetails>)>,
 
+    // Prim Creation controls
+    pub rez_shape_index: usize,
+    pub rez_scale: f32,
+
     // Status message
     pub status_message: Option<String>,
     pub status_is_error: bool,
@@ -76,6 +86,8 @@ impl ObjectsTab {
             roots_only: false,
             pending_query: None,
             pending_inspect: None,
+            rez_shape_index: 0,
+            rez_scale: 0.5,
             status_message: None,
             status_is_error: false,
         }
@@ -166,6 +178,37 @@ impl ObjectsTab {
                         let total = self.objects.len();
                         ui.label(RichText::new(format!("Count: {total}")).strong().color(COLOR_TEXT_MUTED).size(12.0));
                     });
+                });
+
+                ui.separator();
+
+                // Rez primitive toolbar row
+                ui.horizontal(|ui| {
+                    ui.label(RichText::new("✨ Rez Prim:").strong());
+                    egui::ComboBox::from_id_salt("rez_shape_combo")
+                        .width(130.0)
+                        .selected_text(SHAPE_NAMES[self.rez_shape_index])
+                        .show_ui(ui, |ui| {
+                            for (idx, name) in SHAPE_NAMES.iter().enumerate() {
+                                ui.selectable_value(&mut self.rez_shape_index, idx, *name);
+                            }
+                        });
+
+                    ui.add_space(8.0);
+                    ui.label("Size:");
+                    ui.add(egui::Slider::new(&mut self.rez_scale, 0.1..=10.0).text("m"));
+
+                    ui.add_space(8.0);
+                    let rez_btn = Button::new(RichText::new("🔨 Rez In-World").strong().color(COLOR_SUCCESS));
+                    if ui.add_enabled(is_connected, rez_btn).clicked() {
+                        let mut req = HashMap::new();
+                        req.insert("op".to_string(), LLSDValue::String("createObject".to_string()));
+                        req.insert("shape_index".to_string(), LLSDValue::Integer(self.rez_shape_index as i32));
+                        req.insert("scale".to_string(), LLSDValue::Real(self.rez_scale as f64));
+                        let _ = client.send("LLObjects", req);
+                        self.status_message = Some(format!("Rezzing {} in front of avatar…", SHAPE_NAMES[self.rez_shape_index]));
+                        self.status_is_error = false;
+                    }
                 });
 
                 if let Some(ref status) = self.status_message {
@@ -355,6 +398,27 @@ impl ObjectsTab {
                                                 sel_args.insert("local_id".to_string(), LLSDValue::Integer(obj.local_id as i32));
                                                 let _ = client.send("LLObjects", sel_args);
                                                 self.status_message = Some(format!("Sent selectObject for #{}.", obj.local_id));
+                                                self.status_is_error = false;
+                                            }
+
+                                            // 📑 Duplicate Object Button
+                                            if ui.add(Button::new(RichText::new("📑 Duplicate (+1m Z)").size(12.0))).clicked() {
+                                                let mut dup_args = HashMap::new();
+                                                dup_args.insert("op".to_string(), LLSDValue::String("duplicate".to_string()));
+                                                dup_args.insert("local_id".to_string(), LLSDValue::Integer(obj.local_id as i32));
+                                                let _ = client.send("LLObjects", dup_args);
+                                                self.status_message = Some(format!("Sent duplicate request for #{}.", obj.local_id));
+                                                self.status_is_error = false;
+                                            }
+
+                                            // 🗑 Delete (Trash) Object Button
+                                            let del_btn = Button::new(RichText::new("🗑 Delete to Trash").color(COLOR_DANGER).size(12.0));
+                                            if ui.add(del_btn).clicked() {
+                                                let mut del_args = HashMap::new();
+                                                del_args.insert("op".to_string(), LLSDValue::String("deleteObject".to_string()));
+                                                del_args.insert("local_id".to_string(), LLSDValue::Integer(obj.local_id as i32));
+                                                let _ = client.send("LLObjects", del_args);
+                                                self.status_message = Some(format!("Sent deleteObject for #{} to trash.", obj.local_id));
                                                 self.status_is_error = false;
                                             }
                                         });

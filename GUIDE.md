@@ -49,14 +49,17 @@ Machinima dolly shot generator and keyframe path interpolator:
 - **Automated Benchmarking**: Measures streaming framerates and frametime jitter along the path.
 - **Persistence**: Sequences saved automatically to `camera_sequences.json`.
 
-### 5. 🧱 Inworld Objects & Linksets Inspector (`tab_objects.rs`)
-Visual inspection of nearby primitives within draw distance using standard `LLObjects` pumps:
+### 5. 🧱 Inworld Objects & Linksets Inspector & Prim Creation (`tab_objects.rs`)
+Visual inspection and live manipulation of nearby primitives within draw distance using standard `LLObjects` pumps:
+- **Rez Primitive Toolbar**: Rezzes 13 standard geometric primitives (Box/Cube, Sphere, Cylinder, Prism, Pyramid, Tetrahedron, Cone, Torus, Tube, Ring) at avatar coordinates with custom sizing (0.1–10.0m).
 - **Hierarchical Tree Browser**: Groups objects into Linksets (root prim + indented children with link counts).
 - **Search & Filters**: Distance slider (8–256m), object name, local ID, and UUID substring search.
 - **One-Click Actions**:
   - *Focus Camera*: Orients camera at object center with dynamic distance offset.
   - *Teleport To*: Teleports avatar to object's bounding box coordinates.
-  - *Highlight In-World*: Triggers `LLObjects.selectObject` to highlight prims.
+  - *Highlight In-World*: Triggers `LLObjects.selectObject` to highlight prims in simulator.
+  - *Duplicate (+1m Z)*: Replicates selected object with a 1m elevation offset.
+  - *Delete Prim*: Derezzes selected object into the avatar's trash folder.
   - *Inspect LLSD*: Formatted JSON / LLSD viewer for physics shape, velocity, scale, and click action.
 
 ### 6. 📡 2D Spatial Mini-Radar & Minimap (`tab_radar.rs`)
@@ -103,7 +106,7 @@ Complete embedded Rhai scripting engine with native LEAP bindings:
 ### 11. 🧠 Model Context Protocol (MCP) Server for AI Agents
 Headless JSON-RPC 2.0 stdio server for Antigravity and external AI agents:
 - **CLI Flag**: `aurora-leap-gui.exe --mcp-stdio`
-- **20 Tools**: Complete toolset covering connection, login, telemetry, movement, camera, snapshots, bookmarks, radar, objects, dialog notifications, and raw LLSD evaluation.
+- **27 Tools**: Complete toolset covering connection, login, telemetry, movement, camera, snapshots, bookmarks, radar, dialog notifications, script evaluation, raw LLSD, and full primitive creation and manipulation (`aurora_create_object`, `aurora_delete_object`, `aurora_set_object_transform`, `aurora_select_object`, `aurora_deselect_object`, `aurora_set_object_name`, `aurora_duplicate_object`).
 - **Multimodal AI Vision**: Supports `capture_snapshot: true` parameter on navigation actions to return PNG snapshots for instant visual analysis.
 
 ---
