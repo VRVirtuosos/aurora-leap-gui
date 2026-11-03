@@ -57,22 +57,22 @@ During any of these timeouts or slow viewer frames, the Windows event loop halts
 
 ```mermaid
 flowchart TD
-    subgraph GUI_Thread [egui UI Render Thread (60 FPS - Zero Wait)]
-        UI[Tab UI Render] -->|Immediate Read| Cache[(Shared Reactive State Cache)]
-        UI -->|Dispatch Task| AsyncQueue[Async Request Dispatcher]
-        AsyncQueue -->|Returns immediately| UI
-        PollInbox[try_recv Async Replies] -->|Update State| UI
+    subgraph GUI_Thread ["egui UI Render Thread (60 FPS - Zero Wait)"]
+        UI["Tab UI Render"] -->|"Immediate Read"| Cache[("Shared Reactive State Cache")]
+        UI -->|"Dispatch Task"| AsyncQueue["Async Request Dispatcher"]
+        AsyncQueue -->|"Returns immediately"| UI
+        PollInbox["try_recv Async Replies"] -->|"Update State"| UI
     end
 
-    subgraph Background_Workers [Background Worker Pool]
-        AsyncQueue -->|Spawn/Channel| Worker[Background Request Task]
-        Worker -->|Send Frame & Wait| LeapClient[LEAP Stdio Channel]
-        LeapClient -->|Response via reqid| Worker
-        Worker -->|Post Result| PollInbox
+    subgraph Background_Workers ["Background Worker Pool"]
+        AsyncQueue -->|"Spawn / Channel"| Worker["Background Request Task"]
+        Worker -->|"Send Frame & Wait"| LeapClient["LEAP Stdio Channel"]
+        LeapClient -->|"Response via reqid"| Worker
+        Worker -->|"Post Result"| PollInbox
     end
 
-    subgraph Viewer_Process [Aurora-Viewer.exe]
-        LeapClient <-->|Length-Prefixed LLSD Frames| Subsystems[LEAP Subsystems & Event Pumps]
+    subgraph Viewer_Process ["Aurora-Viewer.exe"]
+        LeapClient <-->|"Length-Prefixed LLSD Frames"| Subsystems["LEAP Subsystems & Event Pumps"]
     end
 ```
 
@@ -152,10 +152,10 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    M1[Milestone 1: Non-Blocking GUI Refactor] --> M2[Milestone 2: LLWorld & Nearby Radar]
-    M2 --> M3[Milestone 3: Objects & Appearance LLSD]
-    M3 --> M4[Milestone 4: Inventory Tree & REPL Tools]
-    M4 --> M5[Milestone 5: MCP AI Agent Control & Antigravity Bridge]
+    M1["Milestone 1: Non-Blocking GUI Refactor"] --> M2["Milestone 2: LLWorld & Nearby Radar"]
+    M2 --> M3["Milestone 3: Objects & Appearance LLSD"]
+    M3 --> M4["Milestone 4: Inventory Tree & REPL Tools"]
+    M4 --> M5["Milestone 5: MCP AI Agent Control & Antigravity Bridge"]
 ```
 
 - **Milestone 1 (Immediate)**:
@@ -184,18 +184,18 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    subgraph AI_Agent [AI Agent: Antigravity / Claude / Cursor]
-        Prompt[Agent Context & Reasoning] <--> MCP_Client[MCP Client stdio/SSE]
+    subgraph AI_Agent ["AI Agent: Antigravity / Claude / Cursor"]
+        Prompt["Agent Context & Reasoning"] <--> MCP_Client["MCP Client stdio / SSE"]
     end
 
-    subgraph Aurora_MCP_Bridge [aurora-leap-gui --mcp-stdio]
-        MCP_Client <-->|JSON-RPC 2.0 (Tools/Resources/Prompts)| MCP_Core[MCP Protocol Engine]
-        MCP_Core <-->|Non-blocking Async Dispatch| LeapClient[LeapClient Controller]
-        MCP_Core <-->|Local Storage| JSON_Store[saved_locations.json]
+    subgraph Aurora_MCP_Bridge ["aurora-leap-gui --mcp-stdio"]
+        MCP_Client <-->|"JSON-RPC 2.0 (Tools / Resources / Prompts)"| MCP_Core["MCP Protocol Engine"]
+        MCP_Core <-->|"Non-blocking Async Dispatch"| LeapClient["LeapClient Controller"]
+        MCP_Core <-->|"Local Storage"| JSON_Store["saved_locations.json"]
     end
 
-    subgraph Viewer [Aurora-Viewer.exe]
-        LeapClient <-->|LLSD Frames over stdio| Pumps[LEAP Subsystems: LLAgent, LLCamera, LLWorld, etc.]
+    subgraph Viewer ["Aurora-Viewer.exe"]
+        LeapClient <-->|"LLSD Frames over stdio"| Pumps["LEAP Subsystems: LLAgent, LLCamera, LLWorld, etc."]
     end
 ```
 
