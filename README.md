@@ -7,6 +7,15 @@ A modern, high-performance graphical desktop application built in **Rust** using
 
 ---
 
+> [!NOTE]
+> ### ⚠️ Project Status: Early Rough Draft & Diagnostic Test Harness
+> Please note that this is a **first rough draft** with potential errors and an interface that is messy and not organized well. It was designed as a **quick-and-dirty testing system** for developing and verifying Aurora-Viewer LEAP features, so don't expect it to be beautiful, amazing, or error-free at this point!
+>
+> - **Fork & Customize**: Feel free to fork the repository and do whatever you want with it yourself if there's something you don't like.
+> - **Issues & Feedback**: You are welcome to post GitHub issues and I will look at them and try to fix them as they come up, provided they are in scope of what I want the tool to be.
+
+---
+
 ## Key Features
 
 ### 🚀 1. Automated Feature Verification Suite
